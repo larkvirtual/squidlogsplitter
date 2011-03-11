@@ -1,0 +1,3 @@
+To build sls you need:
+
+SCons (http://www.scons.org/) *OR* GNU Make
