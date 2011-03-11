@@ -1,0 +1,10 @@
+#OPT = -DDEBUG
+
+.PHONY: clean
+
+sls: sls.c resolver.c
+	gcc $(OPT) -O3 -ansi -pedantic -W -Wall -lnsl -o $@ $^
+	/usr/ccs/bin/strip $@
+
+clean:
+	/bin/rm -f sls
