@@ -1,4 +1,4 @@
-/* Copyright (C) Vladimir <virtual.lark@gmail.com>, 2004-2011
+/* Copyright (C) Vladimir <virtual.lark@gmail.com>, 2004-2017
 
     SLS is free software; you can redistribute it and/or modify it under
     the terms of the GNU General Public License as published by the Free
@@ -13,7 +13,7 @@
 
 #define NAME "sls"
 #define BRANCH "1.1"
-#define PATCH "6"
+#define PATCH "7" /* 1.1p7 */
 
 /* (C) Vladimir, 2004 */
 /*************************************/
@@ -29,7 +29,7 @@ my_uint32_t	mask;	/* вида 0xffffff00 */
 }net_mask_t;
 /* тип СЕТЬ */
 
-#define MAX_NETWORKS 256
+#define MAX_NETWORKS 512
 /* хватит на ближайшее будущее, при необходимости
 увеличить */
 typedef struct{
@@ -113,7 +113,7 @@ puts("You should increase MAX_NETWORKS value!");
 	}
 nw->n_networks--; /* т.к. при done = 1 происходит nw->n_networks++ */
 #ifdef DEBUG
-printf("%s(): networks loaded: %u\n", __FUNCTION__, nw->n_networks);
+printf("%s(): networks loaded: %zd\n", __FUNCTION__, nw->n_networks);
 #endif
 
 fclose(file);
@@ -122,7 +122,7 @@ return 0;
 
 void	load_net_mask(net_mask_t *nmask, char *buf){
 my_uint32_t	first, second, theird, fourth;
-size_t		mlen; /* /маска */
+my_uint32_t		mlen; /* /маска */
 
 sscanf(buf, "%u.%u.%u.%u", &first, &second, &theird, &fourth);
 nmask->net = (first << 24) | (second << 16) | (theird << 8) | fourth;
